@@ -1,19 +1,15 @@
-package com.service;
+package com.training.springbootnew.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bean.LoginBean;
+import com.training.springbootnew.model.Login;
 
 @Service
 public class LoginService {
 	
-	public boolean validate(LoginBean bean)	{
+	public boolean validate(Login bean)	{
 		
-		return bean.getUserName().equals(bean.getPassword());
+		return (bean.getUsername().equals("admin") && bean.getPassword().equals("admin@123"));
 	}
 	
 
