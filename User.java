@@ -1,40 +1,33 @@
-package com.bean;
+package com.springbackend.Springbackend.model;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="admin")
 public class User {
+	@Id
+	@Column(name="username")
+	private String username;
+	@Column(name="password")
+	private String password;
 
-	@NotNull
-	@Size(min=2, max=30)
-	//@Pattern(regexp = "^[a-zA-Z0-9]+$")
-	//@NotEmpty(message = "Please provide a name")
-	private String name;
-
-	@NotNull
-	@Min(18)
-	private Integer age;
-
-	public String getName() {
-		return this.name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public Integer getAge() {
-		return age;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setAge(Integer age) {
-		this.age = age;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String toString() {
-		return "User(Name: " + this.name + ", Age: " + this.age + ")";
-	}
 }

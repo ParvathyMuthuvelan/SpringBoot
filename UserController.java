@@ -1,30 +1,32 @@
-package com.controller;
+package com.springbackend.Springbackend.controller;
 
-import javax.validation.Valid;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.bean.User;
+import com.springbackend.Springbackend.model.User;
+import com.springbackend.Springbackend.service.UserService;
 
-@Controller
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/v1")
+@RestController
 public class UserController {
-	@RequestMapping(value = "/showUser", method = RequestMethod.GET)
-	public String showForm(User user) {
-		return "userForm";
-	}
-
-	@RequestMapping(value = "/submitUser", method = RequestMethod.POST)
-	public String checkUserInfo(@Valid User user, BindingResult bindingResult) {
-		String result = "";
-		if (bindingResult.hasErrors()) {
-			result = "userForm";
-		} else {
-			result = "success";
-		}
-		return result;
+	@Autowired
+	UserService userService;
+	
+	@GetMapping("/loginUser")
+	public ResponseEntity<Object> validateUser(@RequestBody User user) 		
+	{
+		User u = userService.validateUser(user);
+		if (u==null)
+		
+		return new ResponseEntity<>("Invalid credentials",HttpStatus.NOT_FOUND);
+		else
+			return new ResponseEntity<>("Successful login", HttpStatus.OK);
 	}
 }
